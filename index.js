@@ -1,3 +1,8 @@
+// Crypto fix for Node.js
+if (!globalThis.crypto) {
+    globalThis.crypto = require('crypto').webcrypto;
+}
+
 require("events").EventEmitter.defaultMaxListeners = 960;
 require("./guru/gmdHelpers");
 
