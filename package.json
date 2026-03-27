@@ -10,7 +10,7 @@
   },
   "scripts": {
     "dev": "node --max-old-space-size=256 index.js",
-    "start": "pm2 start ecosystem.config.js --deep-monitoring --attach",
+    "start": "pm2 start index.js --max-memory-restart 256M --node-args='--max-old-space-size=256' --name ultra-guru",
     "stop": "pm2 stop ultra-guru",
     "restart": "pm2 restart ultra-guru && pm2 logs",
     "stash": "git stash && git stash drop"
