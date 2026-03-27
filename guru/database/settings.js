@@ -31,13 +31,13 @@ const SettingsDB = DATABASE.define(
 
 const DEFAULT_SETTINGS = {
     PREFIX: ".",
-    OWNER_NAME: "𝐆𝐈𝐅𝐓𝐄𝐃 𝐓𝐄𝐂𝐇",
+    OWNER_NAME: "GuruTech",
     OWNER_NUMBER: "254799916673",
-    BOT_NAME: "𝐀𝐓𝐀𝐒𝐒𝐀-𝐌𝐃",
-    FOOTER: "ᴘᴏᴡᴇʀᴇᴅ ʙʏ ɢɪғᴛᴇᴅ ᴛᴇᴄʜ",
-    CAPTION: "©𝟐𝟎𝟐𝟓 𝐀𝐓𝐀𝐒𝐒𝐀-𝐌𝐃 𝐕𝟓",
-    BOT_PIC: "https://files.giftedtech.co.ke/image/u90mimage.jpg",
-    VERSION: packageJson.version || "5.0.0",
+    BOT_NAME: "ULTRA GURU",
+    FOOTER: "Powered by GuruTech",
+    CAPTION: "⚡ ULTRA GURU Premium | Ultra Fast | Ultra Secure",
+    BOT_PIC: "https://files.catbox.moe/5evber.jpg",
+    VERSION: packageJson.version || "2.0.0",
     MODE: config.MODE || "public",
     WARN_COUNT: "3",
     TIME_ZONE: config.TIME_ZONE || "Africa/Nairobi",
@@ -52,21 +52,21 @@ const DEFAULT_SETTINGS = {
     ANTICALL_MSG: "*_📞 Auto Call Reject Mode Active. 📵 No Calls Allowed!_*",
     AUTO_LIKE_STATUS: config.AUTO_LIKE_STATUS || "true",
     AUTO_READ_STATUS: config.AUTO_READ_STATUS || "true",
-    STATUS_LIKE_EMOJIS: "💛,❤️,💜,🤍,💙",
+    STATUS_LIKE_EMOJIS: "🦠,🥷,🪾,🍂,🦅,🔥,✨",
     AUTO_REPLY_STATUS: "false",
-    STATUS_REPLY_TEXT: "*ʏᴏᴜʀ sᴛᴀᴛᴜs ᴠɪᴇᴡᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ ✅*",
+    STATUS_REPLY_TEXT: "*✨ Your status viewed successfully! ✨*",
     AUTO_REACT: "off",
     AUTO_REPLY: "false",
     AUTO_READ_MESSAGES: "off",
     AUTO_BIO: "false",
     AUTO_BLOCK: "",
-    YT: "youtube.com/@giftedtechnexus",
-    NEWSLETTER_JID: "120363403054496228@newsletter",
-    GC_JID: "LZE4CoZNhLB28z5jtqwNLA",
-    NEWSLETTER_URL: "https://whatsapp.com/channel/0029Vb6lNd511ulWbxu1cT3A",
-    BOT_REPO: "mauriceguru/atassa",
-    PACK_NAME: "𝐀𝐓𝐀𝐒𝐒𝐀-𝐌𝐃",
-    PACK_AUTHOR: "𝐆𝐈𝐅𝐓𝐄𝐃 𝐓𝐄𝐂𝐇",
+    YT: "youtube.com/@gurutech",
+    NEWSLETTER_JID: "120363406466294627@newsletter",
+    GC_JID: "",
+    NEWSLETTER_URL: "https://whatsapp.com/channel/0029Vb6INd511ulWbxu1cT3A",
+    BOT_REPO: "GuruhTech/ULTRA-GURU",
+    PACK_NAME: "ULTRA GURU",
+    PACK_AUTHOR: "GuruTech",
     SUDO_NUMBERS: "",
     PM_PERMIT: "false",
     ANTIVIEWONCE: "indm",
@@ -98,7 +98,7 @@ async function initializeSettings() {
     }
 
     initialized = true;
-    console.log("✅ Bot Settings Initialized");
+    console.log("✅ ULTRA GURU Settings Initialized");
 }
 
 async function getSetting(key) {
