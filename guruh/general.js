@@ -9,6 +9,18 @@ const { gmd, commands, monospace, formatBytes } = require("../guru"),
   ram = `${formatBytes(freeMemoryBytes)}/${formatBytes(totalMemoryBytes)}`;
 const { sendButtons } = require("gifted-btns");
 
+// Sacred Lotus Menu Design
+const sacredLotus = `
+                    ／l、     
+                   （ﾟ､ ｡ ７     
+                    l、 ~ヽ     
+                    じしf_,)ノ     
+        ༺༻༺༻༺༻༺༻༺༻༺༻༺༻༺༻
+        ☸     ULTRA GURU     ☸
+        ☸    READY TO USE    ☸
+        ༺༻༺༻༺༻༺༻༺༻༺༻༺༻༺༻
+`;
+
 gmd(
   {
     pattern: "ping",
@@ -52,18 +64,6 @@ gmd(
       ],
     });
 
-    /*await Gifted.sendMessage(from, {
-      text: 
-      contextInfo: {
-        forwardingScore: 5,
-        isForwarded: true,
-        forwardedNewsletterMessageInfo: {
-          newsletterJid: newsletterJid,
-          newsletterName: botName,
-          serverMessageId: 143
-        }
-      }
-    }, { quoted: mek });*/
     await react("✅");
   },
 );
@@ -174,29 +174,41 @@ gmd(
         (command) => command.pattern && !command.dontAddCommandList,
       ).length;
 
-      let menus = `
-*🦄 Uᴘᴛɪᴍᴇ :* ${monospace(uptime)}
-*🍁 Dᴀᴛᴇ Tᴏᴅᴀʏ:* ${monospace(date)}
-*🎗 Tɪᴍᴇ Nᴏᴡ:* ${monospace(time)}
+      let menus = `${sacredLotus}
 
-➮Fᴏᴜɴᴅᴇʀ - Gifted Tech
-➮Usᴇʀ - ${monospace(pushName)}
-➮Nᴜᴍ - ${monospace(ownerNumber)} 
-➮Mᴇᴍᴏʀʏ - ${monospace(ram)}
+╭─────────────────────────╮
+│                         │
+│  🪷 BOT     : ${monospace(botName)}
+│  🪷 OWNER   : ${monospace("GuruTech")}
+│  🪷 PREFIX  : ${monospace(botPrefix)}
+│  🪷 MODE    : ${monospace(botMode)}
+│  🪷 PLUGINS : ${monospace(totalCommands.toString())}
+│  🪷 VERSION : ${monospace(botVersion)}
+│  🪷 USER    : ${monospace(pushName)}
+│  🪷 UPTIME  : ${monospace(uptime)}
+│  🪷 DATE    : ${monospace(date)}
+│  🪷 TIME    : ${monospace(time)}
+│  🪷 MEMORY  : ${monospace(ram)}
+│                         │
+╰─────────────────────────╯
 
-*🧑‍💻 :* ${monospace(botName)} Iꜱ Aᴠᴀɪʟᴀʙʟᴇ
+༺༻༺༻༺༻༺༻༺༻༺༻༺༻༺༻
+☸  *MAIN MENU*  ☸
+༺༻༺༻༺༻༺༻༺༻༺༻༺༻༺༻
 
-╭──❰ *ALL MENU* ❱
-│🏮 Lɪꜱᴛ
-│🏮 Cᴀᴛᴇɢᴏʀʏ
-│🏮 Hᴇʟᴘ
-│🏮 Aʟɪᴠᴇ
-│🏮 Uᴘᴛɪᴍᴇ
-│🏮 Wᴇᴀᴛʜᴇʀ
-│🏮 Lɪɴᴋ
-│🏮 Cᴘᴜ
-│🏮 Rᴇᴘᴏꜱɪᴛᴏʀʏ
-╰─────────────⦁`;
+╭──❰ *AVAILABLE* ❱
+│🏮 *${botPrefix}menu* - Full Menu
+│🏮 *${botPrefix}list* - Command List
+│🏮 *${botPrefix}ping* - Response Speed
+│🏮 *${botPrefix}uptime* - Bot Status
+│🏮 *${botPrefix}repo* - Source Code
+│🏮 *${botPrefix}chjid* - Channel Info
+╰─────────────⦁
+
+                    ／l、     
+                   （ﾟ､ ｡ ７     
+                    l、 ~ヽ     
+                    じしf_,)ノ`;
 
       const giftedMess = {
         image: { url: botPic },
@@ -277,7 +289,8 @@ gmd(
         (command) => command.pattern && !command.dontAddCommandList,
       ).length;
 
-      let list = `
+      let list = `${sacredLotus}
+
 ╭━━〔 *${monospace(botName)}* 〕━━╮
 │ ✦ *Mᴏᴅᴇ* : ${monospace(botMode)}
 │ ✦ *Pʀᴇғɪx* : [ ${monospace(botPrefix)} ]
@@ -394,7 +407,9 @@ gmd(
         categorized[cat].sort((a, b) => a.pattern.localeCompare(b.pattern));
       }
 
-      let header = `╭══〘〘 *${monospace(botName)}* 〙〙═⊷
+      let header = `${sacredLotus}
+
+╭━━〔 *${monospace(botName)}* 〕━━╮
 ┃❍ *Mᴏᴅᴇ:*  ${monospace(botMode)}
 ┃❍ *Pʀᴇғɪx:*  [ ${monospace(botPrefix)} ]
 ┃❍ *Usᴇʀ:*  ${monospace(pushName)}
@@ -426,7 +441,7 @@ gmd(
 
       const giftedMess = {
         image: { url: botPic },
-        caption: `${menu.trim()}\n\n> *${botFooter}*`,
+        caption: `${menu.trim()}\n\n${sacredLotus}\n> *${botFooter}*`,
         contextInfo: {
           mentionedJid: [sender],
           forwardingScore: 5,
@@ -446,6 +461,9 @@ gmd(
     }
   },
 );
+
+// Rest of your commands (return, uptime, repo, save, chjid) remain the same...
+// Keep all your other commands unchanged from your original file
 
 gmd(
   {
@@ -505,23 +523,6 @@ gmd(
             },
           ],
         });
-
-        /* await Gifted.sendMessage(
-        from,
-        {
-          text: formattedMessage,
-          contextInfo: {
-            forwardingScore: 5,
-            isForwarded: true,
-            forwardedNewsletterMessageInfo: {
-              newsletterJid: newsletterJid,
-              newsletterName: botName,
-              serverMessageId: 143
-            },
-          },
-        },
-        { quoted: mek }
-      );*/
         await react("✅");
       }
     } catch (error) {
@@ -787,7 +788,6 @@ gmd(
     }
   },
 );
-
 
 gmd(
   {
