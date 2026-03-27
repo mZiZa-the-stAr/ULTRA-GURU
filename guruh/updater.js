@@ -71,8 +71,8 @@ gmd(
 
             const excludeList = [
                 ".env",
-                "gift/database/database.db",
-                "gift/session/session.db",
+                "guru/database/database.db",
+                "guru/session/session.db",
             ];
 
             copyFolderSync(sourcePath, destinationPath, excludeList);

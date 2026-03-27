@@ -1,5 +1,5 @@
 const { gmd, getGroupMetadata, getLidMapping } = require("../gift");
-const { getGroupSetting, setGroupSetting } = require("../gift/database/groupSettings");
+const { getGroupSetting, setGroupSetting } = require("../guru/database/groupSettings");
 
 gmd(
   {
@@ -209,7 +209,7 @@ gmd(
       groupAdmins,
       groupMetadata,
     } = conText;
-    const { getLidMapping } = require("../gift/connection/groupCache");
+    const { getLidMapping } = require("../guru/connection/groupCache");
 
     if (!isGroup) return reply("❌ This command only works in groups!");
     if (!isBotAdmin) return reply("❌ Bot is not an admin in this group!");
@@ -265,7 +265,7 @@ gmd(
 
     if (!targetJid.includes("@")) targetJid += "@s.whatsapp.net";
 
-    const { isSuperUser } = require("../gift/database/sudo");
+    const { isSuperUser } = require("../guru/database/sudo");
     const targetNum = targetJid.split("@")[0];
     const isTargetSuperUser = await isSuperUser(targetJid, Gifted);
     
@@ -362,7 +362,7 @@ gmd(
       groupSuperAdmins,
       groupMetadata,
     } = conText;
-    const { getLidMapping } = require("../gift/connection/groupCache");
+    const { getLidMapping } = require("../guru/connection/groupCache");
 
     if (!isGroup) return reply("❌ This command only works in groups!");
     if (!isBotAdmin) return reply("❌ Bot is not an admin in this group!");
@@ -508,7 +508,7 @@ gmd(
       mentionedJid,
       groupMetadata,
     } = conText;
-    const { getLidMapping } = require("../gift/connection/groupCache");
+    const { getLidMapping } = require("../guru/connection/groupCache");
 
     if (!isGroup) return reply("❌ This command only works in groups!");
     if (!isBotAdmin) return reply("❌ Bot is not an admin in this group!");

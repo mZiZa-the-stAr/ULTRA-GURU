@@ -7,8 +7,8 @@ const {
     updateNote,
     deleteNote,
     deleteAllNotes,
-} = require("../gift/database/notes");
-const { getContextInfo } = require("../gift/contextInfo");
+} = require("../guru/database/notes");
+const { getContextInfo } = require("../guru/contextInfo");
 const { sendButtons } = require("gifted-btns");
 
 const more = String.fromCharCode(8206);

@@ -9,7 +9,7 @@ const {
   groupCache,
   getGroupMetadata,
   cachedGroupMetadata,
-} = require("../gift/connection/groupCache");
+} = require("../guru/connection/groupCache");
 
 const pendingCmdFiles = new Map();
 
@@ -953,7 +953,7 @@ gmd(
       superUser,
     } = conText;
     const { isJidGroup } = require("gifted-baileys");
-    const { convertLidToJid } = require("../gift/connection/serializer");
+    const { convertLidToJid } = require("../guru/connection/serializer");
 
     if (!isSuperUser) return reply("❌ Owner Only Command!");
 
@@ -1015,7 +1015,7 @@ gmd(
     const { reply, react, isSuperUser, quotedUser, args, mentionedJid } =
       conText;
     const { isJidGroup } = require("gifted-baileys");
-    const { convertLidToJid } = require("../gift/connection/serializer");
+    const { convertLidToJid } = require("../guru/connection/serializer");
 
     if (!isSuperUser) return reply("❌ Owner Only Command!");
 
@@ -1070,7 +1070,7 @@ gmd(
   },
   async (from, Gifted, conText) => {
     const { reply, react, isSuperUser } = conText;
-    const { convertLidToJid } = require("../gift/connection/serializer");
+    const { convertLidToJid } = require("../guru/connection/serializer");
 
     if (!isSuperUser) return reply("❌ Owner Only Command!");
 
@@ -1122,7 +1122,7 @@ gmd(
       newsletterJid,
       botPrefix,
     } = conText;
-    const { downloadMediaMessage } = require("../gift/connection/serializer");
+    const { downloadMediaMessage } = require("../guru/connection/serializer");
     const { isJidGroup } = require("gifted-baileys");
 
     if (!isSuperUser) return reply("❌ Owner Only Command!");
@@ -1192,7 +1192,7 @@ gmd(
           buffer = Buffer.concat(chunks);
         } catch (dlErr) {
           const altDownload =
-            require("../gift/connection/serializer").downloadMediaMessage;
+            require("../guru/connection/serializer").downloadMediaMessage;
           const fakeMsg = { key: { remoteJid: from }, message: quotedMsg };
           buffer = await altDownload(fakeMsg, Gifted);
         }
@@ -1265,7 +1265,7 @@ gmd(
   },
   async (from, Gifted, conText) => {
     const { reply, react, isSuperUser, quotedMsg, q, mek } = conText;
-    const { downloadMediaMessage } = require("../gift/connection/serializer");
+    const { downloadMediaMessage } = require("../guru/connection/serializer");
 
     if (!isSuperUser) return reply("❌ Owner Only Command!");
     if (!quotedMsg)
@@ -1790,7 +1790,7 @@ gmd(
   },
   async (from, Gifted, conText) => {
     const { q, mek, reply, react, isGroup, isSuperUser, quotedUser, botFooter } = conText;
-    const { getLidMapping } = require("../gift/connection/groupCache");
+    const { getLidMapping } = require("../guru/connection/groupCache");
     const { sendButtons } = require("gifted-btns");
 
     if (!isSuperUser) {

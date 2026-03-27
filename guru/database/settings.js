@@ -64,7 +64,7 @@ const DEFAULT_SETTINGS = {
     NEWSLETTER_JID: "120363403054496228@newsletter",
     GC_JID: "LZE4CoZNhLB28z5jtqwNLA",
     NEWSLETTER_URL: "https://whatsapp.com/channel/0029Vb6lNd511ulWbxu1cT3A",
-    BOT_REPO: "mauricegift/atassa",
+    BOT_REPO: "mauriceguru/atassa",
     PACK_NAME: "𝐀𝐓𝐀𝐒𝐒𝐀-𝐌𝐃",
     PACK_AUTHOR: "𝐆𝐈𝐅𝐓𝐄𝐃 𝐓𝐄𝐂𝐇",
     SUDO_NUMBERS: "",

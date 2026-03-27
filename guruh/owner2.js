@@ -9,7 +9,7 @@ const {
   groupCache,
   getGroupMetadata,
   cachedGroupMetadata,
-} = require("../gift/connection/groupCache");
+} = require("../guru/connection/groupCache");
 
 const { exec: _shellExec } = require("child_process");
 
@@ -62,7 +62,7 @@ gmd(
     await react("⏳");
     try {
       const gift = require("../gift");
-      const _rawDb = require("../gift/database/database").DATABASE;
+      const _rawDb = require("../guru/database/database").DATABASE;
       const settings = await gift.getAllSettings();
       const { getSetting, setSetting, getAllSettings, commands } = gift;
       const prefix = settings.PREFIX;

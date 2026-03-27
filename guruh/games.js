@@ -7,7 +7,7 @@ const {
     makeMove,
     endGame,
     initGamesDB,
-} = require("../gift/database/games");
+} = require("../guru/database/games");
 
 const {
     createWcgGame,
@@ -19,7 +19,7 @@ const {
     eliminatePlayer,
     endWcgGame,
     initWcgDB,
-} = require("../gift/database/wcgGame");
+} = require("../guru/database/wcgGame");
 
 const {
     createDiceGame,
@@ -29,7 +29,7 @@ const {
     playerRoll,
     endDiceGame,
     initDiceDB,
-} = require("../gift/database/diceGame");
+} = require("../guru/database/diceGame");
 
 const { 
     clearGameTimeout, 
@@ -44,7 +44,7 @@ const {
     handleAiDiceRoll,
     gameTimeouts,
     diceTimeouts,
-} = require("../gift/gameHandler");
+} = require("../guru/gameHandler");
 
 const {
     wcgTimeouts,
@@ -53,7 +53,7 @@ const {
     setWcgJoinTimeout,
     formatScores,
     getDiceEmoji,
-} = require("../gift/wcg");
+} = require("../guru/wcg");
 
 
 const {
@@ -61,7 +61,7 @@ const {
     rollDice: aiRollDice,
     findBestTttMove,
     BOT_JID,
-} = require("../gift/gameAI");
+} = require("../guru/gameAI");
 
 initGamesDB();
 initWcgDB();
@@ -883,7 +883,7 @@ gmd({
         });
     }
     
-    const { WcgDB } = require("../gift/database/wcgGame");
+    const { WcgDB } = require("../guru/database/wcgGame");
     await WcgDB.destroy({ where: { chatJid: from } });
     
     const scores = {};
@@ -935,7 +935,7 @@ gmd({
     }
     
     const rounds = parseInt(q) || 3;
-    const { DiceDB } = require("../gift/database/diceGame");
+    const { DiceDB } = require("../guru/database/diceGame");
     await DiceDB.destroy({ where: { chatJid: from } });
     
     await DiceDB.create({

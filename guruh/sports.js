@@ -4,7 +4,7 @@ const {
   generateWAMessageContent,
   generateWAMessageFromContent,
 } = require("gifted-baileys");
-const { getSetting } = require("../gift/database/settings");
+const { getSetting } = require("../guru/database/settings");
 
 const SPORTS_API_BASE = "https://apiskeith.top";
 
