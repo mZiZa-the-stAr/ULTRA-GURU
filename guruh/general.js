@@ -1,4 +1,4 @@
-const { gmd, commands, monospace, formatBytes } = require("../guru"),
+const { gmd, commands, monospace, formatBytes } = require("../gift"),
   fs = require("fs"),
   axios = require("axios"),
   BOT_START_TIME = Date.now(),
@@ -6,14 +6,8 @@ const { gmd, commands, monospace, formatBytes } = require("../guru"),
   moment = require("moment-timezone"),
   more = String.fromCharCode(8206),
   readmore = more.repeat(4001),
-  ram = `${formatBytes(freeMemoryBytes())}/${formatBytes(totalMemoryBytes())}`;
+  ram = `${formatBytes(freeMemoryBytes)}/${formatBytes(totalMemoryBytes)}`;
 const { sendButtons } = require("gifted-btns");
-
-// Enhanced Arrow & Sparkle Header
-const ultraArrow = `
-✨ ★彡 ULTRA GURU 彡★ ✨
-     ➳ Ready • Fast • Powerful ➳
-`;
 
 gmd(
   {
@@ -58,6 +52,18 @@ gmd(
       ],
     });
 
+    /*await Gifted.sendMessage(from, {
+      text: 
+      contextInfo: {
+        forwardingScore: 5,
+        isForwarded: true,
+        forwardedNewsletterMessageInfo: {
+          newsletterJid: newsletterJid,
+          newsletterName: botName,
+          serverMessageId: 143
+        }
+      }
+    }, { quoted: mek });*/
     await react("✅");
   },
 );
@@ -168,39 +174,29 @@ gmd(
         (command) => command.pattern && !command.dontAddCommandList,
       ).length;
 
-      let menus = `${ultraArrow}
+      let menus = `
+*🦄 Uᴘᴛɪᴍᴇ :* ${monospace(uptime)}
+*🍁 Dᴀᴛᴇ Tᴏᴅᴀʏ:* ${monospace(date)}
+*🎗 Tɪᴍᴇ Nᴏᴡ:* ${monospace(time)}
 
-✨━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━✨
-         🌟 BOT INFORMATION 🌟
-✨━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━✨
+➮Fᴏᴜɴᴅᴇʀ - Gifted Tech
+➮Usᴇʀ - ${monospace(pushName)}
+➮Nᴜᴍ - ${monospace(ownerNumber)} 
+➮Mᴇᴍᴏʀʏ - ${monospace(ram)}
 
-   ✨ Bot     ➳ ${monospace(botName)}
-   ✨ Owner   ➳ ${monospace("GuruTech")}
-   ✨ Prefix  ➳ ${monospace(botPrefix)}
-   ✨ Mode    ➳ ${monospace(botMode)}
-   ✨ Plugins ➳ ${monospace(totalCommands)}
-   ✨ Version ➳ ${monospace(botVersion)}
-   ✨ User    ➳ ${monospace(pushName)}
-   ✨ Uptime  ➳ ${monospace(uptime)}
-   ✨ Date    ➳ ${monospace(date)}
-   ✨ Time    ➳ ${monospace(time)}
-   ✨ Memory  ➳ ${monospace(ram)}
+*🧑‍💻 :* ${monospace(botName)} Iꜱ Aᴠᴀɪʟᴀʙʟᴇ
 
-✨━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━✨
-              MAIN MENU
-✨━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━✨
-
-   ➸ ${botPrefix}menu     → Full Menu
-   ➸ ${botPrefix}list     → Command List
-   ➸ ${botPrefix}ping     → Response Speed
-   ➸ ${botPrefix}uptime   → Bot Status
-   ➸ ${botPrefix}repo     → Source Code
-   ➸ ${botPrefix}chjid    → Channel Info
-
-                    ／l、     
-                   （ﾟ､ ｡ ７     
-                    l、 ~ヽ     
-                    じしf_,)ノ`;
+╭──❰ *ALL MENU* ❱
+│🏮 Lɪꜱᴛ
+│🏮 Cᴀᴛᴇɢᴏʀʏ
+│🏮 Hᴇʟᴘ
+│🏮 Aʟɪᴠᴇ
+│🏮 Uᴘᴛɪᴍᴇ
+│🏮 Wᴇᴀᴛʜᴇʀ
+│🏮 Lɪɴᴋ
+│🏮 Cᴘᴜ
+│🏮 Rᴇᴘᴏꜱɪᴛᴏʀʏ
+╰─────────────⦁`;
 
       const giftedMess = {
         image: { url: botPic },
@@ -281,28 +277,23 @@ gmd(
         (command) => command.pattern && !command.dontAddCommandList,
       ).length;
 
-      let list = `${ultraArrow}
-
-✨━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━✨
-            COMMAND LIST
-✨━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━✨
-
-   ✨ Mode     ➳ ${monospace(botMode)}
-   ✨ Prefix   ➳ ${monospace(botPrefix)}
-   ✨ User     ➳ ${monospace(pushName)}
-   ✨ Plugins  ➳ ${monospace(totalCommands)}
-   ✨ Version  ➳ ${monospace(botVersion)}
-   ✨ Uptime   ➳ ${monospace(uptime)}
-   ✨ Time     ➳ ${monospace(time)}
-   ✨ Date     ➳ ${monospace(date)}
-   ✨ TimeZone ➳ ${monospace(timeZone)}
-   ✨ RAM      ➳ ${monospace(ram)}
-
-${readmore}\n`;
+      let list = `
+╭━━〔 *${monospace(botName)}* 〕━━╮
+│ ✦ *Mᴏᴅᴇ* : ${monospace(botMode)}
+│ ✦ *Pʀᴇғɪx* : [ ${monospace(botPrefix)} ]
+│ ✦ *Usᴇʀ* : ${monospace(pushName)}
+│ ✦ *Pʟᴜɢɪɴs* : ${monospace(totalCommands.toString())}
+│ ✦ *Vᴇʀsɪᴏɴ* : ${monospace(botVersion)}
+│ ✦ *Uᴘᴛɪᴍᴇ* : ${monospace(uptime)}
+│ ✦ *Tɪᴍᴇ Nᴏᴡ* : ${monospace(time)}
+│ ✦ *Dᴀᴛᴇ Tᴏᴅᴀʏ* : ${monospace(date)}
+│ ✦ *Tɪᴍᴇ Zᴏɴᴇ* : ${monospace(timeZone)}
+│ ✦ *Sᴇʀᴠᴇʀ Rᴀᴍ* : ${monospace(ram)}
+╰─────────────╯${readmore}\n`;
 
       commands.forEach((gmd, index) => {
         if (gmd.pattern && gmd.description) {
-          list += `   ➵ ${index + 1}. ${monospace(gmd.pattern)}\n      ✨ ${gmd.description}\n\n`;
+          list += `*${index + 1} ${monospace(gmd.pattern)}*\n  ${gmd.description}\n`;
         }
       });
 
@@ -403,45 +394,39 @@ gmd(
         categorized[cat].sort((a, b) => a.pattern.localeCompare(b.pattern));
       }
 
-      let header = `${ultraArrow}
-
-✨━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━✨
-           ULTRA GURU MENU
-✨━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━✨
-
-   ✨ Mode     ➳ ${monospace(botMode)}
-   ✨ Prefix   ➳ ${monospace(botPrefix)}
-   ✨ User     ➳ ${monospace(pushName)}
-   ✨ Plugins  ➳ ${monospace(totalCommands)}
-   ✨ Version  ➳ ${monospace(botVersion)}
-   ✨ Uptime   ➳ ${monospace(uptime)}
-   ✨ Time     ➳ ${monospace(time)}
-   ✨ Date     ➳ ${monospace(date)}
-   ✨ TimeZone ➳ ${monospace(timeZone)}
-   ✨ RAM      ➳ ${monospace(ram)}
-
-${readmore}\n`;
+      let header = `╭══〘〘 *${monospace(botName)}* 〙〙═⊷
+┃❍ *Mᴏᴅᴇ:*  ${monospace(botMode)}
+┃❍ *Pʀᴇғɪx:*  [ ${monospace(botPrefix)} ]
+┃❍ *Usᴇʀ:*  ${monospace(pushName)}
+┃❍ *Pʟᴜɢɪɴs:*  ${monospace(totalCommands.toString())}
+┃❍ *Vᴇʀsɪᴏɴ:*  ${monospace(botVersion)}
+┃❍ *Uᴘᴛɪᴍᴇ:*  ${monospace(uptime)}
+┃❍ *Tɪᴍᴇ Nᴏᴡ:*  ${monospace(time)}
+┃❍ *Dᴀᴛᴇ Tᴏᴅᴀʏ:*  ${monospace(date)}
+┃❍ *Tɪᴍᴇ Zᴏɴᴇ:*  ${monospace(timeZone)}
+┃❍ *Sᴇʀᴠᴇʀ Rᴀᴍ:*  ${monospace(ram)}
+╰═════════════════⊷\n${readmore}\n`;
 
       const formatCategory = (category, gmds) => {
-        let section = `✨━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━✨\n`;
-        section += `       ❋ ${monospace(category.toUpperCase())} ❋\n`;
-        section += `✨━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━✨\n`;
-        gmds.forEach((gmd) => {
-          const prefix = gmd.isBody ? "" : botPrefix;
-          section += `   ➳ ${monospace(prefix + gmd.pattern)}\n`;
-        });
-        section += `\n`;
-        return section;
+        const title = `╭━━━━❮ *${monospace(category.toUpperCase())}* ❯━⊷ \n`;
+        const body = gmds
+          .map((gmd) => {
+            const prefix = gmd.isBody ? "" : botPrefix;
+            return `┃◇ ${monospace(prefix + gmd.pattern)}`;
+          })
+          .join("\n");
+        const footer = `╰━━━━━━━━━━━━━━━━━⊷\n`;
+        return `${title}${body}\n${footer}\n`;
       };
 
       let menu = header;
       for (const category of sortedCategories) {
-        menu += formatCategory(category, categorized[category]);
+        menu += formatCategory(category, categorized[category]) + "\n";
       }
 
       const giftedMess = {
         image: { url: botPic },
-        caption: `${menu.trim()}\n\n${ultraArrow}\n> *${botFooter}*`,
+        caption: `${menu.trim()}\n\n> *${botFooter}*`,
         contextInfo: {
           mentionedJid: [sender],
           forwardingScore: 5,
@@ -461,8 +446,6 @@ ${readmore}\n`;
     }
   },
 );
-
-// ==================== ORIGINAL COMMANDS ====================
 
 gmd(
   {
@@ -522,6 +505,23 @@ gmd(
             },
           ],
         });
+
+        /* await Gifted.sendMessage(
+        from,
+        {
+          text: formattedMessage,
+          contextInfo: {
+            forwardingScore: 5,
+            isForwarded: true,
+            forwardedNewsletterMessageInfo: {
+              newsletterJid: newsletterJid,
+              newsletterName: botName,
+              serverMessageId: 143
+            },
+          },
+        },
+        { quoted: mek }
+      );*/
         await react("✅");
       }
     } catch (error) {
@@ -787,6 +787,7 @@ gmd(
     }
   },
 );
+
 
 gmd(
   {
