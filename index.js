@@ -66,7 +66,7 @@ const {
     createContext,
     createContext2,
     verifyJidState,
-    GuruPresence,
+    setupPresence,
     GuruAntiDelete,
     GuruAntiEdit,
     syncDatabase,
@@ -489,13 +489,13 @@ function setupNewsletterReact(Guru) {
 function setupPresence(Guru) {
     Guru.ev.on("messages.upsert", async ({ messages }) => {
         if (messages?.length > 0) {
-            await GuruPresence(Guru, messages[0].key.remoteJid);
+            await setupPresence(Guru, messages[0].key.remoteJid);
         }
     });
 
     Guru.ev.on("connection.update", ({ connection }) => {
         if (connection === "open") {
-            GuruPresence(Guru, "status@broadcast");
+            setupPresence(Guru, "status@broadcast");
         }
     });
 }
