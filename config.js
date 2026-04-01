@@ -18,3 +18,4 @@ fs.watchFile(fileName, () => {
     delete require.cache[fileName];
     require(fileName);
 });
+
