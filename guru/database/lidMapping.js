@@ -1,3 +1,4 @@
+
 const { DATABASE } = require("./database");
 const { DataTypes } = require("sequelize");
 const { globalLidMapping } = require("gifted-baileys/lib/Utils/lid-mapping");
