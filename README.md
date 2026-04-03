@@ -18,16 +18,24 @@
 
 ### 🛠️ 𝐐𝐔𝐈𝐂𝐊 𝐒𝐄𝐓𝐔𝐏
 
-**1. FORK THE REPO**
-Essential for personal deployment and tracking updates.
+**1. FORK THE REPO**  
+Essential for personal deployment and tracking updates.  
 <p align="left">
   <a href="https://github.com/GuruhTech/ULTRA-GURU/fork">
     <img src="https://img.shields.io/badge/FORK%20NOW-blue?style=for-the-badge" alt="Fork Repo">
   </a>
 </p>
 
-**2. GET SESSION ID**
-Link your WhatsApp account to receive your `SESSION_ID`.
+**2. DOWNLOAD ZIP FOR PANEL USER**  
+Direct ZIP download for easy upload to hosting panels.  
+<p align="left">
+  <a href="https://github.com/GuruhTech/ULTRA-GURU/archive/refs/heads/main.zip">
+    <img src="https://img.shields.io/badge/DOWNLOAD%20ZIP-purple?style=for-the-badge&logo=github" alt="Download ZIP">
+  </a>
+</p>
+
+**3. GET SESSION ID**  
+Link your WhatsApp account to receive your `SESSION_ID`.  
 <p align="left">
   <a href="https://session.giftedtech.co.ke">
     <img src="https://img.shields.io/badge/GET%20SESSION-green?style=for-the-badge" alt="Get Session">
@@ -57,7 +65,7 @@ Link your WhatsApp account to receive your `SESSION_ID`.
 
 #### 🐧 VPS / TERMUX
 ```bash
-git clone [https://github.com/GuruhTech/ULTRA-GURU.git](https://github.com/GuruhTech/ULTRA-GURU.git)
+git clone https://github.com/GuruhTech/ULTRA-GURU.git
 cd ULTRA-GURU
 npm install
 # Edit your .env file with SESSION_ID
