@@ -6,12 +6,15 @@
   </a>
 </p>
 
-<h1 align="center">⚡ ULTRA GURU MD - SESSION GENERATOR ⚡</h1>
+<h1 align="center" style="font-family: 'Space Grotesk', sans-serif; font-weight: 700;">
+  🎖️ ULTRA GURU MD 🎖️
+</h1>
 
 <p align="center">
   <a href="https://github.com/GuruhTech"><img title="Author" src="https://img.shields.io/badge/AUTHOR-GURUTECH+LAB-00b8ff?style=for-the-badge&logo=github"></a>
   <a href="https://github.com/GuruhTech/ULTRA-GURU/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/GuruhTech/ULTRA-GURU?style=social"></a>
   <a href="https://github.com/GuruhTech/ULTRA-GURU/network/members"><img title="Forks" src="https://img.shields.io/github/forks/GuruhTech/ULTRA-GURU?style=social"></a>
+  <img src="https://komarev.com/ghpvc/?username=GuruhTech&label=PROFILE+VIEWS&color=00b8ff&style=for-the-badge" alt="Profile Views">
 </p>
 
 ---
