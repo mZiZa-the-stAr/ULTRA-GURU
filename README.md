@@ -39,10 +39,10 @@
 Choose your preferred method:
 
 <p align="left">
-  <a href="https://session.giftedtech.co.ke/pair">
+  <a href="https://ultra-guru-pair-1.onrender.com/pair">
     <img src="https://img.shields.io/badge/PAIR%20CODE-00b8ff?style=for-the-badge&logo=link&logoColor=white" alt="Pair Code">
   </a>
-  <a href="https://session.giftedtech.co.ke/qr">
+  <a href="https://ultra-guru-pair-1.onrender.com/qr">
     <img src="https://img.shields.io/badge/SCAN%20QR%20CODE-1E90FF?style=for-the-badge&logo=qrcode&logoColor=white" alt="QR Code">
   </a>
 </p>
