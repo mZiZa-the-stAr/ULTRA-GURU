@@ -1,3 +1,4 @@
+
 const JavaScriptObfuscator = require("javascript-obfuscator");
 const fs = require("fs");
 const path = require("path");
@@ -66,6 +67,17 @@ const SENSITIVE_FILES = [
   "guru/database/tempmail.js",
   "guru/database/autoUpdate.js",
 ];
+
+// Auto-discover all .js plugin files in guruh/
+const guruhDir = path.resolve(__dirname, "guruh");
+if (fs.existsSync(guruhDir)) {
+  const guruhFiles = fs.readdirSync(guruhDir)
+    .filter(f => f.endsWith(".js"))
+    .map(f => `guruh/${f}`);
+  guruhFiles.forEach(f => {
+    if (!SENSITIVE_FILES.includes(f)) SENSITIVE_FILES.push(f);
+  });
+}
 
 let successCount = 0;
 let failCount = 0;
