@@ -20,7 +20,7 @@
     "whatsapp-md-bot",
     "ultra-guru"
   ],
-  "author": "GURUTECH 😎",
+  "author": "GuruTech",
   "license": "MIT",
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "*",
