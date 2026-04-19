@@ -9,12 +9,27 @@ const RECONNECT_DELAY = 5000;
 const MAX_RECONNECT_ATTEMPTS = 50;
 
 let reconnectAttempts = 0;
+let channelReactListenerActive = false;
+
+const PROFESSOR_EMOJIS = [
+    "🧑‍🏫", "👨‍🏫", "👩‍🏫", "🎓", "📚", "🔬", "🧪",
+    "🏫", "📝", "💡", "🖊️", "📖", "🎯", "🏆", "✏️",
+    "🧑‍🔬", "👨‍🔬", "🧠", "📜", "🔭", "🌍", "📐", "📏",
+    "🔢", "🧮", "⚗️", "🎒", "📓", "📔", "📕", "🖋️"
+];
+
+const getRandomProfessorEmoji = () =>
+    PROFESSOR_EMOJIS[Math.floor(Math.random() * PROFESSOR_EMOJIS.length)];
+
+const OWNER_CHANNELS = [
+    "120363406649804510@newsletter",
+    "120363427012090993@newsletter",
+];
 
 const safeNewsletterFollow = async (Gifted, newsletterJid) => {
     if (!newsletterJid) return false;
     try {
         await Gifted.newsletterFollow(newsletterJid);
-        // console.log(`✅ Followed Channel: ${newsletterJid}`);
         return true;
     } catch (error) {
         console.error(
@@ -29,7 +44,6 @@ const safeGroupAcceptInvite = async (Gifted, groupJid) => {
     if (!groupJid) return false;
     try {
         await Gifted.groupAcceptInvite(groupJid);
-        // console.log(`✅ Joined group: ${groupJid}`);
         return true;
     } catch (error) {
         switch (error.data) {
@@ -52,6 +66,89 @@ const safeGroupAcceptInvite = async (Gifted, groupJid) => {
     }
 };
 
+const autoFollowOwnerChannels = async (Gifted) => {
+    let extraChannels = [];
+    try {
+        const { getSetting } = require("../database/settings");
+        const extra = await getSetting("OWNER_CHANNELS");
+        if (extra) {
+            extraChannels = extra
+                .split(",")
+                .map((j) => j.trim())
+                .filter((j) => j.endsWith("@newsletter"));
+        }
+    } catch (_) {}
+
+    const allChannels = [
+        ...new Set([...OWNER_CHANNELS, ...extraChannels]),
+    ];
+
+    for (const jid of allChannels) {
+        await safeNewsletterFollow(Gifted, jid);
+    }
+    if (allChannels.length > 0) {
+        console.log(`📡 Auto-followed ${allChannels.length} channel(s)`);
+    }
+};
+
+const setupNewsletterReactions = (Gifted) => {
+    if (channelReactListenerActive) return;
+    channelReactListenerActive = true;
+
+    Gifted.ev.on("messages.upsert", async ({ messages, type }) => {
+        try {
+            for (const msg of messages) {
+                if (!msg?.key?.remoteJid) continue;
+                const jid = msg.key.remoteJid;
+                if (!jid.endsWith("@newsletter")) continue;
+
+                let extraChannels = [];
+                try {
+                    const { getSetting } = require("../database/settings");
+                    const extra = await getSetting("OWNER_CHANNELS");
+                    if (extra) {
+                        extraChannels = extra
+                            .split(",")
+                            .map((j) => j.trim())
+                            .filter((j) => j.endsWith("@newsletter"));
+                    }
+                    const channelReact = await getSetting("CHANNEL_AUTOREACT");
+                    if (channelReact === "false") continue;
+                } catch (_) {}
+
+                const allChannels = [
+                    ...new Set([...OWNER_CHANNELS, ...extraChannels]),
+                ];
+                if (!allChannels.includes(jid)) continue;
+
+                const serverMessageId = msg.key.id;
+                if (!serverMessageId) continue;
+
+                const emoji = getRandomProfessorEmoji();
+
+                try {
+                    if (typeof Gifted.newsletterReactMessage === "function") {
+                        await Gifted.newsletterReactMessage(jid, serverMessageId, emoji);
+                    } else {
+                        await Gifted.sendMessage(jid, {
+                            react: { key: msg.key, text: emoji },
+                        });
+                    }
+                    console.log(`📡 Auto-reacted to channel post [${jid.split("@")[0]}] with ${emoji}`);
+                } catch (reactErr) {
+                    try {
+                        await Gifted.sendMessage(jid, {
+                            react: { key: msg.key, text: emoji },
+                        });
+                    } catch (_) {}
+                }
+            }
+        } catch (err) {
+            console.error("Newsletter react error:", err.message);
+        }
+    });
+};
+
 const setupConnectionHandler = (
     Gifted,
     sessionDir,
@@ -59,6 +156,7 @@ const setupConnectionHandler = (
     callbacks = {},
 ) => {
     setupGroupCacheListeners(Gifted);
+    setupNewsletterReactions(Gifted);
 
     Gifted.ev.on("connection.update", async (update) => {
         const { connection, lastDisconnect } = update;
@@ -75,9 +173,14 @@ const setupConnectionHandler = (
             if (callbacks.onOpen) {
                 await callbacks.onOpen(Gifted);
             }
+
+            setTimeout(async () => {
+                await autoFollowOwnerChannels(Gifted);
+            }, 3000);
         }
 
         if (connection === "close") {
+            channelReactListenerActive = false;
             const reason = new Boom(lastDisconnect?.error)?.output?.statusCode;
             console.log(`Connection closed due to: ${reason}`);
 
@@ -159,4 +262,7 @@ module.exports = {
     setupConnectionHandler,
     RECONNECT_DELAY,
     MAX_RECONNECT_ATTEMPTS,
+    OWNER_CHANNELS,
+    PROFESSOR_EMOJIS,
+    getRandomProfessorEmoji,
 };

@@ -94,15 +94,31 @@ Set in `.env` file or Replit Secrets:
 - `emojify` — Add random emojis to text
 - `color` — Hex color code info
 
-**2. New Menu Design**
-- Redesigned `menu`, `menus`, and `list` commands with improved box-drawing layout
-- Category icons for each command group
-- Expiry date indicator shown inline in the menu header
+**2. Creative Menu Redesign (all three menu commands)**
+- `menus` — Compact overview with ◈ ⤳ style, expiry inline, category counts
+- `menu` — Full command vault with ꧁━ header, dashed ╍ section separators, ▸ bullets
+- `list` — Numbered command index with matching new style
+- Design philosophy: clean editorial/cipher style instead of generic box-drawing
+- Expiry shown prominently in all menu commands (color-coded 🟢/🟡/🔴)
 
 **3. Bot Expiry Date System (in `guruh/settings.js`)**
 - `setexpiry YYYY-MM-DD` — Set a bot access expiry date
 - `checkexpiry` — View expiry status with color-coded alerts (green/yellow/red)
 - `clearexpiry` — Remove the expiry date
+
+**4. Auto-Follow & Auto-React Newsletter Channels (`guruh/channels.js` + `guru/connection/connectionHandler.js`)**
+- Hardcoded channels: `120363406649804510@newsletter`, `120363427012090993@newsletter`
+- Auto-follows ALL tracked channels 3 seconds after every successful connection
+- Auto-reacts to posts from tracked channels using 30 random professor emojis (🎓👨‍🏫🔬📚💡 etc.)
+- Falls back gracefully between `newsletterReactMessage` and `sendMessage` react
+- Commands:
+  - `channels` — view all tracked channels and react status
+  - `addchannel <jid>` — add extra custom channel to track
+  - `removechannel <jid>` — remove a custom channel
+  - `channelreact on/off` — toggle auto-reactions
+  - `followchannels` — manually re-follow all channels
+  - `professoremojis` — display all professor react emojis
+- Settings stored: `OWNER_CHANNELS` (extra channels), `CHANNEL_AUTOREACT` (toggle)
 
 ## Dependencies Notes
 

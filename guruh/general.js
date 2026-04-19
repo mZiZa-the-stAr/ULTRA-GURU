@@ -171,11 +171,11 @@ gmd(
           const exp = new Date(expiryDate);
           const daysLeft = Math.ceil((exp - now) / (1000 * 60 * 60 * 24));
           if (daysLeft <= 0) {
-            expiryLine = `\n🔴 *Expiry:* EXPIRED (${exp.toDateString()})`;
+            expiryLine = `\n◈ 🔴 Expiry   ⤳ *EXPIRED* (${exp.toDateString()})`;
           } else if (daysLeft <= 7) {
-            expiryLine = `\n🟡 *Expiry:* ${daysLeft}d left (${exp.toDateString()})`;
+            expiryLine = `\n◈ 🟡 Expiry   ⤳ *${daysLeft}d left* (${exp.toDateString()})`;
           } else {
-            expiryLine = `\n🟢 *Expiry:* ${daysLeft}d left (${exp.toDateString()})`;
+            expiryLine = `\n◈ 🟢 Expiry   ⤳ *${daysLeft}d left* (${exp.toDateString()})`;
           }
         }
       } catch {}
@@ -199,37 +199,35 @@ gmd(
         .sort(([a], [b]) => a.localeCompare(b))
         .map(([cat, count]) => {
           const icon = catIcons[cat.toLowerCase()] || "⚡";
-          return `│  ${icon} *${cat.charAt(0).toUpperCase() + cat.slice(1)}* — ${count} cmds`;
+          return `◈ ${icon} *${cat.charAt(0).toUpperCase() + cat.slice(1)}* ⤳ ${count} cmds`;
         })
         .join("\n");
 
       let menus =
-`╔══════════════════════════╗
-║  ✨ *${botName.toUpperCase()}* ✨  
-╚══════════════════════════╝
+`꧁━━━━━ ✦ *${botName.toUpperCase()}* ✦ ━━━━━꧂
 
-👤 *User:* ${pushName}
-📱 *Mode:* ${botMode?.toUpperCase() || "PUBLIC"}
-🤖 *Version:* v${botVersion || "5.0.0"}
-⚡ *Prefix:* \`${botPrefix}\`
-📊 *Total Cmds:* ${totalCommands}
-⏱️ *Uptime:* ${uptime}
-🕒 *Time:* ${time}
-📅 *Date:* ${date}
-🌍 *Zone:* ${timeZone}${expiryLine}
+◈ 👤 User     ⤳ ${pushName}
+◈ 📱 Mode     ⤳ ${botMode?.toUpperCase() || "PUBLIC"}
+◈ ⚡ Prefix   ⤳ \`${botPrefix}\`
+◈ 🏷️ Version  ⤳ v${botVersion || "5.0.0"}
+◈ 📊 Cmds     ⤳ ${totalCommands} loaded
+◈ ⏱️ Uptime   ⤳ ${uptime}
+◈ 🕒 Time     ⤳ ${time}
+◈ 📅 Date     ⤳ ${date}
+◈ 🌍 Zone     ⤳ ${timeZone}${expiryLine}
 
-╭────── 📋 *CATEGORIES* ──────╮
+╍╍╍╍╍╍ 📂 *COMMAND CATEGORIES* ╍╍╍╍╍╍
+
 ${categoryLines}
-╰──────────────────────────────╯
 
-┌──── 🚀 *QUICK COMMANDS* ────┐
-│  ${botPrefix}menu — Full command list
-│  ${botPrefix}list — All commands
-│  ${botPrefix}ping — Bot speed
-│  ${botPrefix}uptime — Bot uptime
-│  ${botPrefix}repo — Bot script
-│  ${botPrefix}help — Usage guide
-└──────────────────────────────┘
+╍╍╍╍╍╍ ⚡ *QUICK ACCESS* ╍╍╍╍╍╍╍╍╍╍╍
+
+\`${botPrefix}menu\` ▸ Full cmd list
+\`${botPrefix}list\` ▸ All commands
+\`${botPrefix}ping\` ▸ Bot speed
+\`${botPrefix}uptime\` ▸ Uptime
+\`${botPrefix}repo\` ▸ Source code
+\`${botPrefix}help\` ▸ Usage guide
 
 > ✨ _${botFooter}_`;
 
@@ -313,20 +311,21 @@ gmd(
       ).length;
 
       let list =
-`╔══════════════════════════════╗
-║   📋 *ULTRA GURU — COMMAND LIST*   
-╠══════════════════════════════╣
-┃ 🌟 *Mode*     : ${monospace((botMode || "public").toUpperCase())}
-┃ ⚡ *Prefix*   : ${monospace(botPrefix)}
-┃ 👤 *User*     : ${monospace(pushName)}
-┃ 📊 *Plugins*  : ${monospace(totalCommands.toString())}
-┃ 📌 *Version*  : ${monospace("v" + (botVersion || "5.0.0"))}
-┃ ⏳ *Uptime*   : ${monospace(uptime)}
-┃ 🕒 *Time*     : ${monospace(time)}
-┃ 📅 *Date*     : ${monospace(date)}
-┃ 🌍 *Zone*     : ${monospace(timeZone)}
-┃ 💾 *Ram*      : ${monospace(ram)}
-╚══════════════════════════════╝${readmore}\n\n`;
+`꧁━━━━━ ✦ *${(botName || "ULTRA GURU MD").toUpperCase()}* ✦ ━━━━━꧂
+         📋 _Full Command Index_
+
+◈ 🌐 Mode     ⤳ ${monospace((botMode || "public").toUpperCase())}
+◈ ⚡ Prefix   ⤳ ${monospace(botPrefix)}
+◈ 👤 User     ⤳ ${monospace(pushName)}
+◈ 📊 Plugins  ⤳ ${monospace(totalCommands.toString())} loaded
+◈ 🏷️ Version  ⤳ ${monospace("v" + (botVersion || "5.0.0"))}
+◈ ⏱️ Uptime   ⤳ ${monospace(uptime)}
+◈ 🕒 Time     ⤳ ${monospace(time)}
+◈ 📅 Date     ⤳ ${monospace(date)}
+◈ 🌍 Zone     ⤳ ${monospace(timeZone)}
+◈ 💾 RAM      ⤳ ${monospace(ram)}
+
+╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍${readmore}\n\n`;
 
       commands.forEach((gmd, index) => {
         if (gmd.pattern && gmd.description) {
@@ -439,10 +438,10 @@ gmd(
           const expD = new Date(expiryRaw);
           const dLeft = Math.ceil((expD - new Date()) / (1000 * 60 * 60 * 24));
           expiryHeaderLine = dLeft <= 0
-            ? `\n┃ 🔴 *Expiry*     : EXPIRED`
+            ? `\n◈ 🔴 Expiry   ⤳ *EXPIRED* (${expD.toDateString()})`
             : dLeft <= 7
-              ? `\n┃ 🟡 *Expiry*     : ${dLeft}d left`
-              : `\n┃ 🟢 *Expiry*     : ${dLeft}d left`;
+              ? `\n◈ 🟡 Expiry   ⤳ *${dLeft}d left* (${expD.toDateString()})`
+              : `\n◈ 🟢 Expiry   ⤳ *${dLeft}d left* (${expD.toDateString()})`;
         }
       } catch {}
 
@@ -454,30 +453,32 @@ gmd(
       };
 
       let header =
-`╔═══════════════════════════════╗
-║   🌟 *ULTRA GURU MD — MENU* 🌟   
-╠═══════════════════════════════╣
-┃ 🎭 *Bot*       : ${monospace(botName)}
-┃ 🌟 *Mode*      : ${monospace((botMode || "public").toUpperCase())}
-┃ ⚡ *Prefix*    : ${monospace(botPrefix)}
-┃ 👤 *User*      : ${monospace(pushName)}
-┃ 📊 *Plugins*   : ${monospace(totalCommands.toString())}
-┃ 📌 *Version*   : ${monospace("v" + (botVersion || "5.0.0"))}
-┃ ⏳ *Uptime*    : ${monospace(uptime)}
-┃ 🕒 *Time*      : ${monospace(time)}
-┃ 📅 *Date*      : ${monospace(date)}
-┃ 🌍 *Zone*      : ${monospace(timeZone)}
-┃ 💾 *Ram*       : ${monospace(ram)}${expiryHeaderLine}
-╚═══════════════════════════════╝${readmore}\n\n`;
+`꧁━━━━━ ✦ *${(botName || "ULTRA GURU MD").toUpperCase()}* ✦ ━━━━━꧂
+         🗂️ _Complete Command Vault_
+
+◈ 🤖 Bot      ⤳ ${monospace(botName)}
+◈ 🌐 Mode     ⤳ ${monospace((botMode || "public").toUpperCase())}
+◈ ⚡ Prefix   ⤳ ${monospace(botPrefix)}
+◈ 👤 User     ⤳ ${monospace(pushName)}
+◈ 📊 Plugins  ⤳ ${monospace(totalCommands.toString())} loaded
+◈ 🏷️ Version  ⤳ ${monospace("v" + (botVersion || "5.0.0"))}
+◈ ⏱️ Uptime   ⤳ ${monospace(uptime)}
+◈ 🕒 Time     ⤳ ${monospace(time)}
+◈ 📅 Date     ⤳ ${monospace(date)}
+◈ 🌍 Zone     ⤳ ${monospace(timeZone)}
+◈ 💾 RAM      ⤳ ${monospace(ram)}${expiryHeaderLine}
+
+╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍${readmore}\n\n`;
 
       const formatCategory = (category, gmds) => {
         const icon = catIcons2[category.toLowerCase()] || "⚡";
-        let catText = `\n╭──── ${icon} *${category.toUpperCase()}* ────╮\n`;
+        let catText = `\n${icon} *${category.toUpperCase()}* _(${gmds.length} cmds)_\n`;
+        catText += `╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍\n`;
         gmds.forEach((gmd) => {
           const prefix = gmd.isBody ? "" : botPrefix;
-          catText += `│  ◈ ${monospace(prefix + gmd.pattern)}\n`;
+          catText += `  ▸ ${monospace(prefix + gmd.pattern)}\n`;
         });
-        catText += `╰${"─".repeat(28)}╯\n`;
+        catText += `╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍\n`;
         return catText;
       };
 
