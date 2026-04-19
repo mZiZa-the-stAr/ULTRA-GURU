@@ -3,6 +3,7 @@ const { gmd } = require("../guru");
 const { getSetting, setSetting } = require("../guru/database/settings");
 const { safeNewsletterFollow, OWNER_CHANNELS, PROFESSOR_EMOJIS } = require("../guru/connection/connectionHandler");
 
+
 gmd(
   {
     pattern: "channels",
@@ -23,13 +24,12 @@ gmd(
       if (extra) {
         extraChannels = extra.split(",").map((j) => j.trim()).filter((j) => j.endsWith("@newsletter"));
       }
-      const channelReact = await getSetting("CHANNEL_AUTOREACT");
       const allChannels = [...new Set([...OWNER_CHANNELS, ...extraChannels])];
 
       let msg =
         `📡 *CHANNEL MANAGER*\n` +
         `${"─".repeat(30)}\n\n` +
-        `🔁 *Auto-React:* ${channelReact === "false" ? "🔴 OFF" : "🟢 ON"}\n` +
+        `🟢 *Auto-React:* ALWAYS ON\n` +
         `🎭 *React Style:* Random Professor Emojis\n` +
         `📊 *Total Channels:* ${allChannels.length}\n\n` +
         `*📌 TRACKED CHANNELS:*\n`;
@@ -45,7 +45,6 @@ gmd(
         `📘 *Commands:*\n` +
         `• \`.addchannel <jid>\` — add channel\n` +
         `• \`.removechannel <jid>\` — remove channel\n` +
-        `• \`.channelreact on/off\` — toggle reactions\n` +
         `• \`.followchannels\` — manually re-follow all\n\n` +
         `> _${botFooter}_`;
 
@@ -132,40 +131,6 @@ gmd(
         `✅ *Channel Removed!*\n\n` +
         `📡 \`${jid}\` removed from auto-react tracking.\n\n` +
         `> _${botFooter}_`
-      );
-    } catch (err) {
-      await react("❌");
-      await reply(`❌ Error: ${err.message}`);
-    }
-  }
-);
-
-gmd(
-  {
-    pattern: "channelreact",
-    aliases: ["togglechreact", "chreact", "autochreact"],
-    react: "🎭",
-    category: "owner",
-    description: "Toggle auto-react to channel posts on/off. Usage: .channelreact on",
-  },
-  async (from, Gifted, conText) => {
-    const { reply, react, isSuperUser, q, botFooter } = conText;
-    if (!isSuperUser) {
-      await react("❌");
-      return reply("❌ Owner Only Command!");
-    }
-    const val = (q || "").toLowerCase().trim();
-    if (!["on", "off"].includes(val)) return reply("❌ Usage: `.channelreact on` or `.channelreact off`");
-    try {
-      const setting = val === "on" ? "true" : "false";
-      await setSetting("CHANNEL_AUTOREACT", setting);
-      await react("✅");
-      await reply(
-        `${val === "on" ? "✅" : "🔴"} *Channel Auto-React ${val.toUpperCase()}*\n\n` +
-        `${val === "on"
-          ? `🎭 Will now randomly react to posts from tracked channels using professor emojis.\n\nEmojis: ${PROFESSOR_EMOJIS.slice(0, 8).join(" ")} ...`
-          : "😴 Auto-react is now disabled for all channels."
-        }\n\n> _${botFooter}_`
       );
     } catch (err) {
       await react("❌");

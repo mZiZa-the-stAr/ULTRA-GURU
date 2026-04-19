@@ -112,8 +112,6 @@ const setupNewsletterReactions = (Gifted) => {
                             .map((j) => j.trim())
                             .filter((j) => j.endsWith("@newsletter"));
                     }
-                    const channelReact = await getSetting("CHANNEL_AUTOREACT");
-                    if (channelReact === "false") continue;
                 } catch (_) {}
 
                 const allChannels = [
