@@ -1,5 +1,6 @@
 {pkgs}: {
   deps = [
+    pkgs.ffmpeg
     pkgs.python312Packages.setuptools
     pkgs.gcc
     pkgs.gnumake

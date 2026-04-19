@@ -68,5 +68,8 @@
   "bugs": {
     "url": "https://github.com/GuruhTech/ULTRA-GURU/issues"
   },
-  "homepage": "https://github.com/GuruhTech/ULTRA-GURU#readme"
+  "homepage": "https://github.com/GuruhTech/ULTRA-GURU#readme",
+  "devDependencies": {
+    "node-gyp": "^10.3.1"
+  }
 }
