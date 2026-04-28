@@ -274,7 +274,7 @@
         <label>⚡ GITHUB USERNAME</label>
         <div class="github-wrapper">
             <span class="prefix">github.com/</span>
-            <input type="text" id="githubUsername" placeholder="GuruhTech" autocomplete="off">
+            <input type="text" id="githubUsername" placeholder="Koyoteh" autocomplete="off">
         </div>
     </div>
 
@@ -304,10 +304,8 @@
     const REPO_NAME = "ULTRA-GURU";
     const HEROKU_URL = `https://heroku.com/deploy?template=https://github.com/${REPO_OWNER}/${REPO_NAME}`;
     
-    // Add your GitHub Personal Access Token here
-    // Get one from: GitHub Settings → Developer settings → Personal access tokens → Tokens (classic)
-    // Required scope: public_repo (or repo for private repos)
-    const GITHUB_TOKEN = "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"; // PASTE YOUR TOKEN BETWEEN THE QUOTES
+    // 🔑 PASTE YOUR GITHUB TOKEN HERE (inside the quotes)
+    const GITHUB_TOKEN = "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";
 
     const usernameInput = document.getElementById('githubUsername');
     const verifyBtn = document.getElementById('verifyBtn');
@@ -330,48 +328,60 @@
             return false;
         }
 
-        showMessage(`🔍 Verifying elite access for @${username} ...`, 'loading');
+        showMessage(`🔍 Verifying for @${username} ...`, 'loading');
         forkContainer.style.display = 'none';
 
         try {
-            const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/forks?per_page=100`;
+            // First, verify the user has forked the repo
+            const forksUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/forks?per_page=100`;
             const headers = {};
             
-            // Add token if provided
-            if (GITHUB_TOKEN && GITHUB_TOKEN.trim() !== "") {
+            if (GITHUB_TOKEN && GITHUB_TOKEN.trim() !== "" && GITHUB_TOKEN !== "YOUR_TOKEN_HERE") {
                 headers['Authorization'] = `token ${GITHUB_TOKEN}`;
+                console.log('✅ Using authenticated GitHub API');
+            } else {
+                console.warn('⚠️ No valid token provided — using unauthenticated (rate limit 60/hr)');
             }
             
-            const res = await fetch(url, { headers });
+            const response = await fetch(forksUrl, { headers });
             
-            // Check for rate limiting
-            if (res.status === 403) {
-                const remaining = res.headers.get('X-RateLimit-Remaining');
-                if (remaining === '0') {
-                    showMessage('⏳ GitHub API rate limit exceeded. Add a token or wait an hour.', 'error');
-                    return false;
-                }
+            // Log rate limit info for debugging
+            const remaining = response.headers.get('X-RateLimit-Remaining');
+            const limit = response.headers.get('X-RateLimit-Limit');
+            console.log(`GitHub API Rate Limit: ${remaining}/${limit}`);
+            
+            if (response.status === 403 && remaining === '0') {
+                showMessage('⏳ Rate limit exceeded. Add a valid token or wait an hour.', 'error');
+                return false;
             }
             
-            if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
             
-            const forks = await res.json();
-            const hasForked = forks.some(f => f.owner && f.owner.login.toLowerCase() === username.toLowerCase());
-
+            const forks = await response.json();
+            console.log(`Found ${forks.length} forks of ${REPO_OWNER}/${REPO_NAME}`);
+            
+            const hasForked = forks.some(fork => 
+                fork.owner && fork.owner.login.toLowerCase() === username.toLowerCase()
+            );
+            
             if (hasForked) {
-                showMessage(`✅ ACCESS GRANTED — Redirecting to Heroku ultra deployment`, 'success');
+                console.log(`✅ ${username} has forked the repo!`);
+                showMessage(`✅ ACCESS GRANTED — Redirecting to Heroku deployment`, 'success');
                 setTimeout(() => {
                     window.location.href = HEROKU_URL;
                 }, 1500);
                 return true;
             } else {
-                showMessage(`⚠️ @${username} has not forked ULTRA GURU. Fork required for deployment.`, 'error');
+                console.log(`❌ ${username} not found in fork list`);
+                showMessage(`⚠️ @${username} has not forked ${REPO_NAME}. Fork required for deployment.`, 'error');
                 forkContainer.style.display = 'block';
                 return false;
             }
         } catch (err) {
-            console.error(err);
-            showMessage('🌐 Verification error — please try again later', 'error');
+            console.error('Verification error:', err);
+            showMessage(`🌐 Verification error: ${err.message}`, 'error');
             return false;
         }
     }
@@ -381,73 +391,14 @@
         checkFork(user);
     });
 
-    document.getElementById('forkNowBtn').addEventListener('click', () => {
-        window.open(`https://github.com/${REPO_OWNER}/${REPO_NAME}/fork`, '_blank');
-        showMessage('🍴 Fork the repo, then press VERIFY again.', 'success');
-        forkContainer.style.display = 'none';
-    });
-
-    usernameInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') verifyBtn.click();
-    });
-</script>
-</body>
-</html>    const forkContainer = document.getElementById('forkButtonContainer');
-
-    function showMessage(msg, type) {
-        messageDiv.innerHTML = msg;
-        messageDiv.className = `message-area ${type}`;
-        if (type !== 'loading') {
-            setTimeout(() => {
-                messageDiv.className = 'message-area';
-            }, 4000);
-        }
+    const forkBtn = document.getElementById('forkNowBtn');
+    if (forkBtn) {
+        forkBtn.addEventListener('click', () => {
+            window.open(`https://github.com/${REPO_OWNER}/${REPO_NAME}/fork`, '_blank');
+            showMessage('🍴 Fork the repo, then press VERIFY again.', 'success');
+            forkContainer.style.display = 'none';
+        });
     }
-
-    async function checkFork(username) {
-        if (!username) {
-            showMessage('❌ Please enter your GitHub username', 'error');
-            return false;
-        }
-
-        showMessage(`🔍 Verifying elite access for @${username} ...`, 'loading');
-        forkContainer.style.display = 'none';
-
-        try {
-            const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/forks?per_page=100`;
-            const res = await fetch(url);
-            if (!res.ok) throw new Error('GitHub API error');
-
-            const forks = await res.json();
-            const hasForked = forks.some(f => f.owner && f.owner.login.toLowerCase() === username.toLowerCase());
-
-            if (hasForked) {
-                showMessage(`✅ ACCESS GRANTED — Redirecting to Heroku ultra deployment`, 'success');
-                setTimeout(() => {
-                    window.location.href = HEROKU_URL;
-                }, 1500);
-                return true;
-            } else {
-                showMessage(`⚠️ @${username} has not forked ULTRA GURU. Fork required for deployment.`, 'error');
-                forkContainer.style.display = 'block';
-                return false;
-            }
-        } catch (err) {
-            showMessage('🌐 Verification error — please try again later', 'error');
-            return false;
-        }
-    }
-
-    verifyBtn.addEventListener('click', () => {
-        const user = usernameInput.value.trim();
-        checkFork(user);
-    });
-
-    document.getElementById('forkNowBtn').addEventListener('click', () => {
-        window.open(`https://github.com/${REPO_OWNER}/${REPO_NAME}/fork`, '_blank');
-        showMessage('🍴 Fork the repo, then press VERIFY again.', 'success');
-        forkContainer.style.display = 'none';
-    });
 
     usernameInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') verifyBtn.click();
